@@ -1,5 +1,6 @@
 import type { AxiosInstance } from 'axios';
 import axios from 'axios';
+import { ElMessage } from 'element-plus';
 import type { CRequestInterceptors, CRequsetConfig } from './type';
 
 class CRequset {
@@ -20,12 +21,22 @@ class CRequset {
     );
 
     //全局拦截器
-    this.instance.interceptors.response.use((res) => {
-      return res.data;
-    });
+    this.instance.interceptors.response.use(
+      (res) => {
+        return res.data;
+      },
+      (err) => {
+        if (err.response.status == 400) {
+          ElMessage({
+            message: err.response.data,
+            type: 'error'
+          });
+        }
+      }
+    );
   }
 
-  request<T = any>(config: CRequsetConfig): Promise<T> {
+  request<T>(config: CRequsetConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       //可进行单独请求拦截
       if (config.interceptors?.requestInterceptors) {
@@ -47,16 +58,16 @@ class CRequset {
     });
   }
 
-  get<T = any>(config: CRequsetConfig) {
+  get<T = any>(config: CRequsetConfig<T>) {
     return this.request<T>({ ...config, method: 'GET' });
   }
-  post<T = any>(config: CRequsetConfig) {
+  post<T = any>(config: CRequsetConfig<T>) {
     return this.request<T>({ ...config, method: 'POST' });
   }
-  detele<T = any>(config: CRequsetConfig) {
+  detele<T = any>(config: CRequsetConfig<T>) {
     return this.request<T>({ ...config, method: 'DETELE' });
   }
-  patch<T = any>(config: CRequsetConfig) {
+  patch<T = any>(config: CRequsetConfig<T>) {
     return this.request<T>({ ...config, method: 'PATCH' });
   }
 }

@@ -1,0 +1,19 @@
+class LocalCache {
+  setCache(key: string, value: any) {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }
+  getCache(key: string) {
+    const value = window.localStorage.getItem(key);
+    if (value) {
+      return JSON.parse(value);
+    }
+  }
+  deteleCache(key: string) {
+    window.localStorage.removeItem(key);
+  }
+  clearCaceh() {
+    window.localStorage.clear();
+  }
+}
+
+export default new LocalCache();

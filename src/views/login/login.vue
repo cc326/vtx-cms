@@ -1,20 +1,19 @@
 <template>
-  <div>login</div>
-  <el-button>Default</el-button>
-  <el-button type="primary" @click="open">Primary</el-button>
-  <el-button type="success">Success</el-button>
-  <el-button type="info">Info</el-button>
-  <el-button type="warning">Warning</el-button>
-  <el-button type="danger">Danger</el-button>
+  <div class="login">
+    <LoginPanel />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ElMessage } from 'element-plus';
-import { useStore } from 'vuex';
-const store = useStore();
-const open = () => {
-  ElMessage.success('this is a message.');
-};
+import LoginPanel from './cpns/login-panel.vue';
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+</style>
