@@ -7,7 +7,6 @@ export interface CRequestInterceptors<T = AxiosRequestConfig> {
   responseInterceptorsCatch?: (err: any) => any;
 }
 
-export interface CRequsetConfig<T = AxiosRequestConfig>
-  extends AxiosRequestConfig {
+export interface CRequsetConfig<T = AxiosRequestConfig> extends AxiosRequestConfig {
   interceptors?: CRequestInterceptors<T>;
 }

@@ -25,9 +25,7 @@
       <el-checkbox v-model="isKeepPassword">记住密码</el-checkbox>
       <el-link type="primary">忘记密码</el-link>
     </div>
-    <el-button type="primary" class="btn" @click="handleLoginClick"
-      >登录</el-button
-    >
+    <el-button type="primary" class="btn" @click="handleLoginClick">登录</el-button>
   </div>
 </template>
 

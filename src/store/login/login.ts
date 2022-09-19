@@ -1,11 +1,8 @@
 import router from '@/router';
-import {
-  accountLoginRequest,
-  resultUserInfoById,
-  resultUserMenusByRoleId
-} from '@/service/login/login';
+import { accountLoginRequest, resultUserInfoById, resultUserMenusByRoleId } from '@/service/login/login';
 import { IAccount } from '@/service/login/type';
 import lc from '@/Utitls/cache';
+import { MapMenuToRouter } from '@/Utitls/map-menu';
 import { Module } from 'vuex';
 import { IRootState } from '../type';
 import { ILoginState } from './type';
@@ -28,6 +25,13 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus) {
       state.userMenus = userMenus;
+
+      //添加动态路由
+      const routes = MapMenuToRouter(userMenus);
+      console.log(routes);
+      routes.forEach((route) => {
+        router.addRoute('main', route);
+      });
     }
   },
   actions: {
@@ -44,9 +48,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       lc.setCache('userInfo', userInfoResult.data);
 
       //获取usermenus
-      const userMenusResult = await resultUserMenusByRoleId(
-        userInfoResult.data.role.id
-      );
+      const userMenusResult = await resultUserMenusByRoleId(userInfoResult.data.role.id);
       commit('changeUserMenus', userMenusResult.data);
       lc.setCache('userMenus', userMenusResult.data);
 
@@ -56,7 +58,6 @@ const loginModule: Module<ILoginState, IRootState> = {
     //刷新页面初始化vuex
     loadLocalLogin({ commit }) {
       const token = lc.getCache('token');
-      console.log(token);
 
       if (token) commit('changeToken', token);
 
