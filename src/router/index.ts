@@ -1,4 +1,5 @@
 import lc from '@/Utitls/cache';
+import { firstMenu } from '@/Utitls/map-menu';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
@@ -29,6 +30,10 @@ router.beforeEach((to) => {
     if (!token) {
       router.push('/login');
     }
+  }
+
+  if (to.path == '/main') {
+    router.push(firstMenu.url);
   }
 });
 

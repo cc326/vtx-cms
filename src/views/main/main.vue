@@ -9,8 +9,7 @@
           <nav-header @fold-change="foldChange" />
         </el-header>
         <el-main class="page-content">
-          main
-          <router-view></router-view>
+          <div class="page-view"><router-view></router-view></div>
         </el-main>
       </el-container>
     </el-container>
@@ -44,6 +43,9 @@ function foldChange(isfold: boolean) {
 
 .page-content {
   height: calc(100% - 48px);
+  .page-view {
+    background-color: #fff;
+  }
 
   .content {
     background-color: #fff;

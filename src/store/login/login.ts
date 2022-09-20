@@ -28,7 +28,6 @@ const loginModule: Module<ILoginState, IRootState> = {
 
       //添加动态路由
       const routes = MapMenuToRouter(userMenus);
-      console.log(routes);
       routes.forEach((route) => {
         router.addRoute('main', route);
       });

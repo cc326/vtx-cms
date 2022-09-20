@@ -3,7 +3,7 @@
     <div class="logo">vue3-ts-CMS</div>
     <el-menu
       router
-      :default-active="1"
+      :default-active="route.path"
       class="el-menu-vertical"
       background-color="#001529"
       :collapse="iscollapse"
@@ -12,7 +12,7 @@
     >
       <template v-for="item in menus" :key="item.id">
         <template v-if="item.children && item.children.length">
-          <el-sub-menu :index="item.id + ''">
+          <el-sub-menu :index="item.url">
             <template #title>
               <el-icon> <component :is="eicon(item.icon)"></component> </el-icon>
               <span>{{ item.name }}</span>
@@ -26,7 +26,7 @@
           </el-sub-menu>
         </template>
         <template v-else>
-          <el-menu-item :index="item.id + ''">
+          <el-menu-item :index="item.url">
             <el-icon> <component :is="eicon(item.icon)"></component> </el-icon>
             <span>{{ item.name }}</span>
           </el-menu-item>
@@ -39,10 +39,14 @@
 <script setup lang="ts">
 import { useStore } from '@/store';
 import { defineProps } from 'vue';
+import { useRoute } from 'vue-router';
 const eicon = (val: string) => val.slice(8);
 // 1.获取menus
 const store = useStore();
 const menus = store.state.login.userMenus;
+
+//router
+const route = useRoute();
 
 //是否隐藏menu
 defineProps({ iscollapse: { type: Boolean, default: false } });

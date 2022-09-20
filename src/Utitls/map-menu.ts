@@ -1,5 +1,7 @@
 //生成动态路由映射
 import { RouteRecordRaw } from 'vue-router';
+
+export let firstMenu: any;
 export function MapMenuToRouter(userMenus: any[]): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = [];
 
@@ -9,7 +11,6 @@ export function MapMenuToRouter(userMenus: any[]): RouteRecordRaw[] {
   routeFiles.keys().forEach((key) => {
     const route = require('../router/main' + key.split('.')[1]);
     allRoutes.push(route.default);
-    console.log(route.default);
   });
 
   //根据菜单获取需要添加的路由
@@ -19,6 +20,8 @@ export function MapMenuToRouter(userMenus: any[]): RouteRecordRaw[] {
       if (menu.type == 2) {
         const route = allRoutes.find((route) => route.path == menu.url);
         if (route) routes.push(route);
+
+        if (!firstMenu) firstMenu = menu;
       } else {
         _recurseGetRouter(menu.children);
       }

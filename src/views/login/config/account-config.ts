@@ -7,8 +7,8 @@ export const rules = {
       trigger: 'blur'
     },
     {
-      pattern: /^[a-z0-9]{5,10}$/,
-      message: '账号只能是5-10位字母或数字~',
+      pattern: /^[a-z0-9]{3,10}$/,
+      message: '账号只能是3-10位字母或数字~',
       trigger: 'blur'
     }
   ],

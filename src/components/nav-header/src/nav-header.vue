@@ -20,7 +20,7 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item @click="outLogin">退出登录</el-dropdown-item>
             <el-dropdown-item>个人中心</el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -30,10 +30,13 @@
 </template>
 
 <script setup lang="ts">
+import { useStore } from '@/store';
+import lc from '@/Utitls/cache';
 import { Expand, Fold } from '@element-plus/icons-vue';
 import { defineEmits, ref } from 'vue';
-import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 const store = useStore();
+const router = useRouter();
 const emit = defineEmits(['foldChange']);
 
 let isfold = ref(false);
@@ -41,6 +44,11 @@ let isfold = ref(false);
 function handleFold() {
   isfold.value = !isfold.value;
   emit('foldChange', isfold.value);
+}
+
+function outLogin() {
+  lc.deteleCache('token');
+  router.push('/login');
 }
 </script>
 
