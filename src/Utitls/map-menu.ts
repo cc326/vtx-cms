@@ -31,3 +31,38 @@ export function MapMenuToRouter(userMenus: any[]): RouteRecordRaw[] {
 
   return routes;
 }
+
+//获取用户按钮权限
+export function mapMenuToPermissions(userMenus: any[]) {
+  //该用户按钮权限
+  const permissions: string[] = [];
+
+  function _recurseGetPermissions(menus: any[]) {
+    for (const menu of menus) {
+      if (menu.type == 1 || menu.type == 2) {
+        _recurseGetPermissions(menu.children ?? []);
+      } else if (menu.type == 3) {
+        permissions.push(menu.permission);
+      }
+    }
+  }
+  _recurseGetPermissions(userMenus);
+  return permissions;
+}
+
+//获取菜单叶子节点  回显编辑角色权限
+export function mapMenuLeafKeys(menuList: any) {
+  const leftKeys: number[] = [];
+
+  const _recurseGetLeftKeys = (menuList: any) => {
+    for (const menu of menuList) {
+      if (menu.children) {
+        _recurseGetLeftKeys(menu.children);
+      } else {
+        leftKeys.push(menu.id);
+      }
+    }
+  };
+  _recurseGetLeftKeys(menuList);
+  return leftKeys;
+}

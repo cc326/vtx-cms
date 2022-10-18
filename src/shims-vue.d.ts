@@ -6,3 +6,9 @@ declare module '*.vue' {
 }
 
 // declare let $store:any
+// declare let $filters:any
+// declare module 'vue' {
+//   interface ComponentCustomProperties {
+//     $filters:any
+//   }
+// }

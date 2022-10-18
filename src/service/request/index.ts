@@ -23,15 +23,22 @@ class CRequset {
     //全局拦截器
     this.instance.interceptors.response.use(
       (res) => {
-        return res.data;
-      },
-      (err) => {
-        if (err.response.status == 400) {
+        if (res.data.code == 0) {
+          return res.data;
+        } else {
           ElMessage({
-            message: err.response.data,
+            message: res.data.data,
             type: 'error'
           });
+          return res.data;
         }
+      },
+      (err) => {
+        ElMessage({
+          message: err.response.data,
+          type: 'error'
+        });
+        return err;
       }
     );
   }
@@ -65,7 +72,7 @@ class CRequset {
     return this.request<T>({ ...config, method: 'POST' });
   }
   detele<T = any>(config: CRequsetConfig<T>) {
-    return this.request<T>({ ...config, method: 'DETELE' });
+    return this.request<T>({ ...config, method: 'DELETE' });
   }
   patch<T = any>(config: CRequsetConfig<T>) {
     return this.request<T>({ ...config, method: 'PATCH' });

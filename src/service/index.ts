@@ -9,7 +9,7 @@ const cRequset = new CRequset({
     requestInterceptors: (config) => {
       const token = lc.getCache('token');
       if (token) {
-        config.headers!.Authorization = token;
+        if (config.headers) config.headers.Authorization = token;
       }
       return config;
     }

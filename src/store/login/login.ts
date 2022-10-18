@@ -2,7 +2,7 @@ import router from '@/router';
 import { accountLoginRequest, resultUserInfoById, resultUserMenusByRoleId } from '@/service/login/login';
 import { IAccount } from '@/service/login/type';
 import lc from '@/Utitls/cache';
-import { MapMenuToRouter } from '@/Utitls/map-menu';
+import { mapMenuToPermissions, MapMenuToRouter } from '@/Utitls/map-menu';
 import { Module } from 'vuex';
 import { IRootState } from '../type';
 import { ILoginState } from './type';
@@ -13,7 +13,8 @@ const loginModule: Module<ILoginState, IRootState> = {
     return {
       token: '',
       userInfo: {},
-      userMenus: []
+      userMenus: [],
+      permissions: []
     };
   },
   mutations: {
@@ -31,15 +32,22 @@ const loginModule: Module<ILoginState, IRootState> = {
       routes.forEach((route) => {
         router.addRoute('main', route);
       });
+
+      //获取用户按钮权限
+      const permissions = mapMenuToPermissions(state.userMenus);
+      state.permissions = permissions;
     }
   },
   actions: {
-    async accountLoginActive({ commit }, payload: IAccount) {
+    async accountLoginActive({ commit, dispatch }, payload: IAccount) {
       //登录逻辑
       const loginResult = await accountLoginRequest(payload);
       const { id, token } = loginResult.data;
       commit('changeToken', token);
       lc.setCache('token', token);
+
+      //更新角色、部门信息
+      dispatch('getInitialDataActive', null, { root: true });
 
       //获取userinfo
       const userInfoResult = await resultUserInfoById(id);
@@ -55,10 +63,12 @@ const loginModule: Module<ILoginState, IRootState> = {
       router.push('/main');
     },
     //刷新页面初始化vuex
-    loadLocalLogin({ commit }) {
+    loadLocalLogin({ commit, dispatch }) {
       const token = lc.getCache('token');
-
       if (token) commit('changeToken', token);
+
+      //更新角色、部门信息
+      dispatch('getInitialDataActive', null, { root: true });
 
       const userInfo = lc.getCache('userInfo');
       if (userInfo) commit('changeUserInfo', userInfo);

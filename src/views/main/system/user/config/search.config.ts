@@ -2,7 +2,7 @@ import type { IForm } from '@/base-ui/CForm';
 export const searchFormConfig: IForm = {
   labelWidth: '120px',
   colLayout: {
-    xl: 6,
+    xl: 8,
     lg: 8,
     md: 12,
     sm: 24,
@@ -11,31 +11,41 @@ export const searchFormConfig: IForm = {
   itemStyle: { padding: '10px 40px' },
   formItems: [
     {
+      field: 'name',
       type: 'input',
       label: '用户名',
       placeholder: '请输入用户名'
     },
     {
-      type: 'password',
-      label: '密码',
-      placeholder: '请输入密码'
+      field: 'realname',
+      type: 'input',
+      label: '姓名',
+      placeholder: '请输入姓名'
     },
     {
+      field: 'cellphone',
+      type: 'input',
+      label: '手机号',
+      placeholder: '请输入手机号'
+    },
+    {
+      field: 'enable',
       type: 'select',
-      label: '喜欢的运动',
-      placeholder: '请输入用户名',
+      label: '状态',
+      placeholder: '请选择状态',
       options: [
         {
-          title: 'rap',
-          value: 'rap'
+          title: '禁用',
+          value: '0'
         },
         {
-          title: '篮球',
-          value: 'bb'
+          title: '启用',
+          value: '1'
         }
       ]
     },
     {
+      field: 'createAt',
       type: 'datepicker',
       label: '创建时间',
       otherOptions: {
