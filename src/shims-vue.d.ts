@@ -12,3 +12,5 @@ declare module '*.vue' {
 //     $filters:any
 //   }
 // }
+
+declare module '*.json'

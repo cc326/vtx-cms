@@ -1,4 +1,5 @@
 import { getPageListDate } from '@/service/main/system/system';
+import dashboard from '@/store/main/analysis/dashboard';
 import type { Store } from 'vuex';
 import { createStore, useStore as useVuexStore } from 'vuex';
 import login from './login/login';
@@ -37,7 +38,7 @@ const store = createStore<IRootState>({
       commit('changeMenusList', menusResult.data.list);
     }
   },
-  modules: { login, system, product }
+  modules: { login, system, product, dashboard }
 });
 
 export function setupStore() {
