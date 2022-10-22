@@ -16,7 +16,11 @@ const systemModule: Module<ISystemState, IRootState> = {
       menuList: [],
       menuCount: 0,
       departmentList: [],
-      departmentCount: 0
+      departmentCount: 0,
+      categoryCount: 0,
+      categoryList: [],
+      storyCount: 0,
+      storyList: []
     };
   },
   getters: {
@@ -31,6 +35,8 @@ const systemModule: Module<ISystemState, IRootState> = {
             return state.menuList;
           case 'department':
             return state.departmentList;
+          case 'story':
+            return state.storyList;
         }
       };
     },
@@ -64,6 +70,18 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeDepartmentCount(state, Count) {
       state.departmentCount = Count;
+    },
+    changeCategoryCount(state, totalCount: number) {
+      state.categoryCount = totalCount;
+    },
+    changeCategoryList(state, roleList: any) {
+      state.categoryList = roleList;
+    },
+    changeStoryCount(state, totalCount: number) {
+      state.storyCount = totalCount;
+    },
+    changeStoryList(state, storyList: any) {
+      state.storyList = storyList;
     }
   },
   actions: {
@@ -83,6 +101,8 @@ const systemModule: Module<ISystemState, IRootState> = {
         case 'department':
           pageUrl = '/department/list';
           break;
+        case 'story':
+          pageUrl = '/story/list';
       }
 
       const pageResult = await getPageListDate(pageUrl, payload.queryInfo);

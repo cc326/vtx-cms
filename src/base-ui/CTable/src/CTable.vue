@@ -40,39 +40,30 @@
 
 <script setup lang="ts">
 import type { IPropList } from '@/base-ui/CTable';
-import { defineEmits, defineProps, PropType } from 'vue';
-const props = defineProps({
-  listData: {
-    type: Array,
-    required: true
-  },
-  listCount: {
-    type: Number,
-    required: true
-  },
-  page: {
-    type: Object,
-    default: () => ({ currendPage: 0, pageSize: 2 })
-  },
-  propList: {
-    type: Array as PropType<IPropList[]>
-  },
-  showIndexCol: Boolean,
-  showSelectionCol: Boolean,
-  showFooter: {
-    type: Boolean,
-    default: true
-  },
-  title: {
-    type: String,
-    default: ''
-  },
-  //是否展示树形结构
-  propChildren: {
-    type: Object,
-    default: () => ({})
+import { defineEmits, defineProps, withDefaults } from 'vue';
+const props = withDefaults(
+  defineProps<{
+    listData: any[];
+    listCount: number;
+    page?: { currentPage: number; pageSize: number };
+    propList?: IPropList[];
+    showIndexCol?: boolean;
+    showSelectionCol?: boolean;
+    showFooter?: boolean;
+    title?: string;
+    //是否展示树形结构
+    propChildren: object;
+  }>(),
+  {
+    page: () => ({ currentPage: 1, pageSize: 2 }),
+    showIndexCol: true,
+    showSelectionCol: true,
+    showFooter: true,
+    title: '',
+    //是否展示树形结构
+    propChildren: () => ({})
   }
-});
+);
 const emit = defineEmits(['selectionChange', 'update:page']);
 
 function selectionChange(value: any) {

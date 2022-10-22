@@ -1,21 +1,16 @@
-<!-- <template>
+<template>
   <div class="overview">
-    <hy-card title="关于">
+    <c-card title="关于">
       <div class="c-left">
-        Vue3Admin 是基于 Vue3、Vuex、VueRouter、Vite、 ElementPlus 、TypeScript、Echart5 等后台系统解决方案。
+        Vue3Admin 是基于 Vue3、Vuex、VueRouter、VueCli、 ElementPlus 、TypeScript、Echart5 等后台系统解决方案。
       </div>
-    </hy-card>
-    <hy-card title="技术栈">
+    </c-card>
+    <c-card title="技术栈">
       <hy-text-link :text-arrs="technologyStacks" />
       <hy-descriptions title="生产环境依赖" :column="2" :table-datas="dependencies" />
       <hy-descriptions title="开发环境依赖" :column="2" :table-datas="devDependencies" />
-    </hy-card>
-    <hy-card title="项目结构">
-      <div class="c-left">
-        <hy-code language="bash" :code="projectDir" />
-      </div>
-    </hy-card>
-    <hy-card title="项目规范">
+    </c-card>
+    <c-card title="项目规范">
       <hy-descriptions
         title="文件命名规范"
         :column="1"
@@ -51,27 +46,26 @@
           }
         ]"
       />
-    </hy-card>
+    </c-card>
 
-    <hy-card title="Git提交规范">
+    <c-card title="Git提交规范">
       <hy-descriptions
         :column="1"
         :table-datas="[
           { name: 'add 操作', description: 'git add ' },
-          { name: 'commit 操作', description: 'yarn commit ' },
+          { name: 'commit 操作', description: 'git commit ' },
           { name: 'pull 操作', description: 'git pull ' },
           { name: 'push 操作', description: 'git push ' }
         ]"
       />
-    </hy-card>
+    </c-card>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import HyCard from '@/base-ui/card';
-import HyCode from '@/base-ui/code';
+import CCard from '@/base-ui/Card/c-card.vue';
 import HyDescriptions from '@/base-ui/descriptions';
 import HyTextLink from '@/base-ui/text-link';
 
@@ -79,9 +73,8 @@ import { dependencies, devDependencies, projectDir, technologyStacks } from './c
 export default defineComponent({
   components: {
     HyDescriptions,
-    HyCard,
-    HyTextLink,
-    HyCode
+    CCard,
+    HyTextLink
   },
 
   setup() {
@@ -95,7 +88,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .overview {
   .c-left {
     text-align: left;
@@ -118,4 +111,4 @@ export default defineComponent({
     }
   }
 }
-</style> -->
+</style>

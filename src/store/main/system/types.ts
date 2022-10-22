@@ -7,4 +7,8 @@ export interface ISystemState {
   menuCount: number;
   departmentList: any[];
   departmentCount: number;
+  categoryCount: number;
+  categoryList: any[];
+  storyCount: number;
+  storyList: any[];
 }

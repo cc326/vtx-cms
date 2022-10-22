@@ -47,6 +47,7 @@ export function mapMenuToPermissions(userMenus: any[]) {
     }
   }
   _recurseGetPermissions(userMenus);
+
   return permissions;
 }
 

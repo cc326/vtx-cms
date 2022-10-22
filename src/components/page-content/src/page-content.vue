@@ -3,7 +3,7 @@
     <c-table v-bind="contentTableConfig" :listData="dataList" :listCount="dataCount" v-model:page="pageInfo">
       <!-- header中的插槽 -->
       <template #headerHandler>
-        <el-button type="primary" v-if="isCreate" @click="handleNewClick">新建</el-button>
+        <el-button type="primary" v-if="isCreate" @click="handleNewClick">新建数据</el-button>
       </template>
 
       <!-- 列表中固定的插槽 -->
@@ -71,7 +71,7 @@ const pageInfo = ref({
 });
 watch(pageInfo, () => getPageData());
 function getPageData(queryInfo: any = {}) {
-  if (!isQuery) return;
+  // if (!isQuery) return;
   store.dispatch(`${props.pageModule}/getPageListAction`, {
     pageName: props.pageName,
     queryInfo: {
